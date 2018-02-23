@@ -27,7 +27,7 @@ var comida = [
 	'arroz',
 	'feijão',
 	'ovo'
-];
+]; 
 
 // Digite a instrução que imprime o valor de 'feijao', que está na variável `comida`.
 comida[1]
