@@ -10,10 +10,10 @@ function desafio(x, y) {
 }
 
 // Declare uma variável que receba a invocação da função criada acima, passando dois números quaisquer por argumento, e somando `5` ao resultado retornado da função.
-var result = desafio(2.5, 2.5);
+var result = desafio(2.5, 2.5) + 5;
 
 // Qual o valor atualizado dessa variável?
-5
+10
 
 // Declare uma nova variável, sem valor.
 var empty;
@@ -23,10 +23,10 @@ Crie uma função que adicione um valor à variável criada acima, e retorne a s
     O valor da variável agora é VALOR.
 Onde VALOR é o novo valor da variável.
 */
-function full(empty) {
+function full() {
 	var empty = 5;
 
-	return 'O valor da variável agora é' + empty +;
+	return 'O valor da variável agora é ' + empty;
 }
 
 // Invoque a função criada acima.
@@ -34,8 +34,8 @@ full();
 
 // Qual o retorno da função? (Use comentários de bloco).
 
-O retorno é a string que foi declarada
-chamada de 'O valor da variável agora é 5'
+/* O retorno é a string que foi declarada
+chamada de 'O valor da variável agora é 5' */
 
 /*
 Crie uma função com as seguintes características:
@@ -64,7 +64,7 @@ args(5, 2, 3);
 
 // Qual o resultado da invocação acima? (Use comentários para mostrar o valor retornado).
 
-O resultado foi 32
+// O resultado foi 32
 
 /*
 Crie uma função com as seguintes características:
@@ -92,9 +92,9 @@ function novoValor(a, b, c) {
 
 // Invoque a função acima utilizando todas as possibilidades (com nenhum argumento, com um, com dois e com três.) Coloque um comentário de linha ao lado da função com o resultado de cada invocação.
 
-novoValor();  		 // Invocando função com nenhum argumento
-novoValor(5);        // Invocando função com um argumento
-novoValor(5,5); 	 // Invocando função com dois argumentos
-novoValor(10,20,10); // Invocando função com três argumentos
+novoValor();  		 // false
+novoValor(5);        // 5
+novoValor(5,5); 	 // 10
+novoValor(10,20,10); // 3
 
 ```
