@@ -123,10 +123,9 @@ pessoa.mostrarAltura(); /* "Minha altura é 1.7m." */
 /*
 Faça a `pessoa` fazer 3 aniversários.
 */
-pessoa.fazerAniversario = function() {
-    pessoa.idade += 3;
-	return "Minha idade agora é " + pessoa.idade;
-}
+pessoa.fazerAniversario();
+pessoa.fazerAniversario();
+pessoa.fazerAniversario();
 
 /*
 Quantos anos a `pessoa` tem agora? (Use a instrução para responder e
@@ -134,7 +133,7 @@ comentários inline ao lado da instrução para mostrar qual foi a resposta
 retornada)
 */
 "Minha idade agora é 27"
-pessoa.fazerAniversario(); /* "Minha idade agora é 27" */
+pessoa.mostrarIdade(); /* "Minha idade agora é 27" */
 
 /*
 Agora, faça a `pessoa` caminhar alguns metros, invocando o método `andar` 3x,
@@ -148,18 +147,18 @@ pessoa.andar(100);
 A pessoa ainda está andando? (Use a instrução para responder e comentários
 inline ao lado da instrução para mostrar qual foi a resposta retornada)
 */
-pessoa.andando
+pessoa.andando //true
 
 /*
 Se a pessoa ainda está andando, faça-a parar.
 */
-pessoa.andando = false
+pessoa.andando = false;
 
 /*
 E agora: a pessoa ainda está andando? (Use uma instrução para responder e
 comentários inline ao lado da instrução para mostrar a resposta retornada)
 */
-pessoa.andando = false
+pessoa.andando //false
 
 /*
 Quantos metros a pessoa andou? (Use uma instrução para responder e comentários
@@ -174,34 +173,42 @@ retornar a string:
 - "Olá, eu sou o [NOME COMPLETO], tenho [IDADE] anos, [ALTURA], meu peso é [PESO] e, só hoje, eu já caminhei [CAMINHOU QUANTOS METROS] metros!"
 
 Só que, antes de retornar a string, você vai fazer algumas validações:
+
 - Se o `sexo` de `pessoa` for "Feminino", a frase acima, no início da
 apresentação, onde diz "eu sou o", deve mostrar "a" no lugar do "o";
+
 - Se a idade for `1`, a frase acima, na parte que fala da idade, vai mostrar a
 palavra "ano" ao invés de "anos", pois é singular;
+
 - Se a quantidade de metros caminhados for igual a `1`, então a palavra que
 deve conter no retorno da frase acima é "metro" no lugar de "metros".
+
 - Para cada validação, você irá declarar uma variável localmente (dentro do
 método), que será concatenada com a frase de retorno, mostrando a resposta
 correta, de acordo com os dados inseridos no objeto.
 */
 pessoa.apresentacao = function() {
-    var ola = "Olá, eu sou a ";
-    var idadeUm = " ano, ";
-    var metroUm = " metro!";
+    var sexo = "o ";
+    var idadeUm = " anos, ";
+    var metroUm = " metros!";
 
     if (pessoa.sexo === "Feminino") {
-        console.log("feminino");
-        return ola + pessoa.nome + " " + pessoa.sobrenome + ", tenho " + pessoa.idade + " anos, " + pessoa.altura + ", meu peso é " + pessoa.peso + "Kg e, só hoje, eu já caminhei " + pessoa.caminhouQuantosMetros + " metros!";    
-    } else if (pessoa.idade === 1) {
-        return ola + pessoa.nome + " " + pessoa.sobrenome + ", tenho " + pessoa.idade + idadeUm + pessoa.altura + ", meu peso é " + pessoa.peso + "Kg e, só hoje, eu já caminhei " + pessoa.caminhouQuantosMetros + " metros!";     
-    } else if (pessoa.caminhouQuantosMetros === 1) {
-          return ola + pessoa.nome + " " + pessoa.sobrenome + ", tenho " + pessoa.idade + " anos, " + pessoa.altura + ", meu peso é " + pessoa.peso + "Kg e, só hoje, eu já caminhei " + pessoa.caminhouQuantosMetros + metroUm;  
-    } else {
-        return "Olá, eu sou o " + pessoa.nome + " " + pessoa.sobrenome + ", tenho " + pessoa.idade + " anos, " + pessoa.altura + ", meu peso é " + pessoa.peso + "Kg e, só hoje, eu já caminhei " + pessoa.caminhouQuantosMetros + " metros!"; 
+        sexo = 'a ';
     }
+
+    if (pessoa.idade === 1) {
+        idadeUm = " ano, ";
+    }
+
+    if (pessoa.caminhouQuantosMetros === 1) {
+        metroUm = " metro!";
+    }
+
+    return "Olá, eu sou " + sexo + pessoa.nome + " " + pessoa.sobrenome + ", tenho " + pessoa.idade + idadeUm + pessoa.altura + ", meu peso é " + pessoa.peso + "Kg e, só hoje, eu já caminhei " + pessoa.caminhouQuantosMetros + metroUm;
 
 }
 
 // Agora, apresente-se ;)
-?
+pessoa.apresentacao();
+
 ```
