@@ -84,7 +84,7 @@ Crie um método chamado `obterMarcaModelo`, que retorne:
 Para retornar os valores de marca e modelo, utilize os métodos criados.
 */
 carro.obterMarcaModelo = function() {
-    return "Esse carro é um " + carro.marca + " " + carro.modelo;
+    return "Esse carro é um " + carro.obterMarca() + " " + carro.obterModelo();
 }
 
 /*
@@ -117,7 +117,7 @@ carro.adicionaPessoa = function(pessoaEntrou) {
         return "Só cabem mais " + (carro.assentos - carro.quantidadePessoas) + cabemMais;
     } 
 
-    return "Já temos " + carro.quantidadePessoas + " no carro!";
+    return "Já temos " + carro.quantidadePessoas + " pessoas no carro!";
 }
 
 /*
@@ -128,28 +128,30 @@ retornar algum valor.
 
 Qual a cor atual do carro?
 */
-carro.cor /* Preto */
+carro.obterCor(); /* Preto */
 
 // Mude a cor do carro para vermelho.
-carro.cor = "Vermelho"
+carro.mudarCor("Vermelho");
 
 // E agora, qual a cor do carro?
+carro.obterCor();
 /* Vermelho */
 
 // Mude a cor do carro para verde musgo.
-carro.cor = "Verde musgo"
+carro.mudarCor("Verde Musgo");
 
 // E agora, qual a cor do carro?
+carro.obterCor();
 /* Verde musgo */
 
 // Qual a marca e modelo do carro?
-carro.marca + " " + carro.modelo
+carro.obterMarcaModelo();
 
 // Adicione 2 pessoas no carro.
-carro.quantidadePessoas += 2;
+carro.adicionaPessoa(2);
 
 // Adicione mais 4 pessoas no carro.
-carro.quantidadePessoas += 4;
+carro.adicionaPessoa(4);
 
 // Faça o carro encher.
 "O carro já está lotado!"
