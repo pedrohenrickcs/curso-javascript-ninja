@@ -90,33 +90,38 @@ carro.obterMarcaModelo = function() {
 /*
 Crie um método que irá adicionar pessoas no carro. Esse método terá as
 seguintes características:
+
 - Ele deverá receber por parâmetro o número de pessoas entrarão no carro. Esse
 número não precisa encher o carro, você poderá acrescentar as pessoas aos
 poucos.
+
 - O método deve retornar a frase: "Já temos [X] pessoas no carro!"
+
 - Se o carro já estiver cheio, com todos os assentos já preenchidos, o método
 deve retornar a frase: "O carro já está lotado!"
+
 - Se ainda houverem lugares no carro, mas a quantidade de pessoas passadas por
 parâmetro for ultrapassar o limite de assentos do carro, então você deve
 mostrar quantos assentos ainda podem ser ocupados, com a frase:
 "Só cabem mais [QUANTIDADE_DE_PESSOAS_QUE_CABEM] pessoas!"
+
 - Se couber somente mais uma pessoa, mostrar a palavra "pessoa" no retorno
 citado acima, no lugar de "pessoas".
 */
 carro.adicionaPessoa = function(pessoaEntrou) {
+    var quantasPessoas = carro.quantidadePessoas + pessoaEntrou;
     var cabemMais = " pessoas!";
-    carro.quantidadePessoas++;
+    // carro.quantidadePessoas++;
 
-    if ( carro.quantidadePessoas === 4 ) {
-        cabemMais = " pessoa!";
-    }
-
-    if (carro.quantidadePessoas >= 5) {
+    if (carro.quantidadePessoas === carro.assentos && quantasPessoas === carro.assentos) {
         return "O carro já está lotado!";
-    } else if ( carro.quantidadePessoas < 5 ) {
+    } 
+    
+    if ( quantasPessoas > carro.assentos ) {
         return "Só cabem mais " + (carro.assentos - carro.quantidadePessoas) + cabemMais;
     } 
 
+    carro.quantidadePessoas += pessoaEntrou;
     return "Já temos " + carro.quantidadePessoas + " pessoas no carro!";
 }
 
