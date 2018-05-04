@@ -39,10 +39,10 @@ Crie uma função chamada `showTeamPosition` com as seguintes características:
     "Não temos a informação do time que está nessa posição."
 */
 var showTeamPosition = function (Number) {
-    if (teams[Number] === undefined) {
+    if (Number >= 6) {
         return "Não temos a informação do time que está nessa posição."
     } else {
-        return 'O time que está em ' + Number++ + 'º lugar é o ' + teams[Number] +'.';
+        return 'O time que está em ' + Number-- + 'º lugar é o ' + teams[Number] + '.';
     }
 };
 
@@ -50,13 +50,24 @@ var showTeamPosition = function (Number) {
 Escolha 4 times do campeonato selecionado e mostre a posição dele, usando a
 função acima. Entre esses 4, adicione 1 que não esteja entre os 5 primeiros.
 */
-// ?
+showTeamPosition(1) // "O time que está em 1º lugar é o Corinthians."
+showTeamPosition(2) // "O time que está em 2º lugar é o Tigres."
+showTeamPosition(3) // "O time que está em 3º lugar é o Santos."
+showTeamPosition(4) // "O time que está em 4º lugar é o Boca Juniors."
+showTeamPosition(7) // "Não temos a informação do time que está nessa posição."
+
+
 
 /*
 Mostre os números de 20 a 30 no console (inclusive o 30), usando a estrutura de
 repetição "while".
 */
-// ?
+var i = 20;
+
+while (i < 30) {
+    i++
+    console.log(i);
+}
 
 /*
 Crie uma função chamada `convertToHex`, com as seguintes características:
@@ -70,7 +81,17 @@ Crie uma função chamada `convertToHex`, com as seguintes características:
     a frase:
     "Não temos o equivalente hexadecimal para [COR]."
 */
-// ?
+var cores = [
+    'white',
+    'black',
+    'red',
+    'green',
+    'blue'
+]
+
+function convertToHex(cor) {
+    
+}
 
 /*
 Tente mostrar o hexadecimal de 8 cores diferentes usando a função criada acima.
