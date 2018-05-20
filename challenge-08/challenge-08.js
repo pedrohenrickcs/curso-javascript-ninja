@@ -4,7 +4,7 @@ Declare uma variável chamada `sum` e atribua a ela uma função chamada
 desses parâmetros.
 */
 var sum = function calculateSum (x, y) {
-  return x + y;
+	return x + y;
 }
 
 /*
@@ -19,39 +19,47 @@ console.log('A soma de ' + 5 + ' e ' + 6 + ' é igual a ' + sum(5, 6));
 Mostre no console o nome da função criada acima, com a frase:
 "O nome da função que faz a soma é [NOME DA FUNÇÃO]."
 */
-// ?
+console.log('O nome da função que faz a soma é '+ sum.name + ' .')
 
 /*
 Crie uma função literal chamada `showName`. Essa função deve retornar o
 seu nome.
 */
-// ?
+function showName() {
+	return 'Pedro';
+}
 
 /*
 Declare uma variável chamada `varShowName` que recebe a função criada acima.
 */
-// ?
+var varShowName = showName();
 
 /*
 Usando a variável criada acima, mostre no console o nome e o retorno da função
 atribuída a ela, com a seguinte frase:
 "A função [NOME DA FUNÇÃO] retorna [RETORNO DA FUNÇÃO]."
 */
-// ?
+console.log('A função '+ sum.name + ' retorna '+ varShowName + ' .');
 
 /*
 Crie uma função literal chamada `calculator`, que funcione assim:
 - A função deve receber um parâmetro que dirá qual operação matemática ela
 vai efetuar. Será uma string com os valores `+`, `-`, `*`, `/` ou `%`;
 - Essa função deve retornar uma segunda função que fará o seguinte:
-  - Essa segunda função deve receber dois parâmetros;
-  - Esses dois parâmetros serão os operandos usados na operação matemática;
-  - O retorno dessa segunda função é a operação matemática completa, com a frase:
-  "Resultado da operação: [NUMERO1] [OPERADOR] [NUMERO2] = [RESULTADO]."
-  - Se o operador não for válido, retornar a frase:
-  "Operação inválida."
+	- Essa segunda função deve receber dois parâmetros;
+	- Esses dois parâmetros serão os operandos usados na operação matemática;
+	- O retorno dessa segunda função é a operação matemática completa, com a frase:
+	"Resultado da operação: [NUMERO1] [OPERADOR] [NUMERO2] = [RESULTADO]."
+	- Se o operador não for válido, retornar a frase:
+	"Operação inválida."
 */
-// ?
+function calculator(operation) {
+	
+	return function (num1, num2) {
+		var result = num1 + operation + num2;
+		return 'Resultado da operação: ' + num1 + operation + num2 + ' = ' + result;
+	}
+}
 
 /*
 Declare uma variável chamada `sum`, que receberá a função acima, passando como
