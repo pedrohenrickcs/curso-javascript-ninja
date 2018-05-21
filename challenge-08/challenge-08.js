@@ -56,8 +56,32 @@ vai efetuar. Será uma string com os valores `+`, `-`, `*`, `/` ou `%`;
 function calculator(operation) {
 	
 	return function (num1, num2) {
-		var result = num1 + operation + num2;
-		return 'Resultado da operação: ' + num1 + operation + num2 + ' = ' + result;
+		var result;
+		switch (operation) {
+			case '+':
+				result = num1 + num2;
+				break;
+
+			case '-':
+				result = num1 - num2;
+				break;
+
+			case '*':
+				result = num1 * num2;
+				break;
+			
+			case '/':
+				result = num1 / num2;
+				break;
+
+			case '%':
+				result = num1 % num2;
+				break;
+
+			default:
+			return 'Operação inválida.';
+		}
+		return 'Resultado da operação: ' + num1 + ' ' + operation + ' ' + num2 + ' = ' + result;
 	}
 }
 
@@ -65,22 +89,28 @@ function calculator(operation) {
 Declare uma variável chamada `sum`, que receberá a função acima, passando como
 parâmetro o operador de soma.
 */
-// ?
+var sum = calculator('+');
 
 /*
 Agora `sum` é uma função. Mostre no console a soma de dois números, usando ela.
 */
-// ?
+console.log(sum(5, 3));
 
 /*
 Agora, declare algumas variáveis com os nomes `subtraction`, `multiplication`,
 `division` e `mod`, e atribua a elas a função `calculator`, passando o operador
 correto por parâmetro para cada uma delas.
 */
-// ?
+var subtraction = calculator('-');
+var multiplication = calculator('*');
+var division = calculator('/');
+var mod = calculator('%');
 
 /*
 Faça uma operação com cada uma das funções criadas acima, mostrando o resultado
 no console.
 */
-// ?
+console.log(subtraction(5, 3));
+console.log(multiplication(10, 2));
+console.log(division(50, 3));
+console.log(mod(10, 3));
