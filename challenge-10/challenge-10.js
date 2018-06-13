@@ -10,12 +10,11 @@
     das variáveis. Analise o que está sendo impresso no console para saber como
     resolver o problema corretamente.
     */
-    var five = '5';
-    console.log( five + ' é número?', typeof five === 'number' );
-    var five = Number(5);
+    var five = Number('5');
+    // console.log( five + ' é número?', typeof five === 'number' );
 
-    var concat = 10 + 10;
-    console.log( '"' + concat + '" é uma string? E é igual a "1010"?', typeof concat === 'string' );
+    var concat = String('10' + '10');
+    // console.log( '"' + concat + '" é uma string? E é igual a "1010"?', typeof concat === 'string' );
 
     /*
     Voltando ao exemplo da calculadora, vamos utilizar mais uma abordagem
@@ -26,7 +25,23 @@
     função receberá dois parâmetros e retornará a operação referente à sua
     propriedade, usando os valores passados por parâmetro.
     */
-    // ?
+    var operation = {
+        '+': function (num1, num2) {
+            return num1 + num2;
+        },
+        '-': function (num1, num2) {
+            return num1 - num2;
+        },
+        '*': function (num1, num2) {
+            return num1 * num2;
+        },
+        '/': function (num1, num2) {
+            return num1 / num2;
+        },
+        '%': function (num1, num2) {
+          return num1 % num2;
+        }
+    };
 
     /*
     Crie uma função chamada `isOperatorValid`, que receberá um operador por
@@ -38,7 +53,9 @@
     Caso contrário, "false".
     - O desafio é fazer o retorno sem usar "if" ou "switch".
     */
-    // ?
+    function isOperatorValid(operator) {
+        return !!operation[operator];
+    }
 
     /*
     Agora vamos criar a calculadora.
@@ -52,7 +69,15 @@
     operador passado para a função "calculator", e passando para esse método
     os dois parâmetros da função de retorno de "calculator".
     */
-    // ?
+    function calculator(operador) {
+        if (operation[operador] !== undefined) {
+            return function (param1, param2) {
+                typeof param1 === 'number' ? console.log('1') : console.log('2');                
+            }
+        }
+    }
+
+    console.log(calculator('+'));
 
     /*
     Crie uma função chamada "showOperationMessage" que recebe três parâmetros:
