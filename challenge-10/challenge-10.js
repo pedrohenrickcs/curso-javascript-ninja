@@ -135,7 +135,13 @@
     - O segundo, a função de soma, passando os dois operandos.
     - Se "sum" for "false", mostrar no console a mensagem de erro.
     */
-    
+    if (sum) {
+        number1 = 10;
+        number2 = 20;
+        console.log(showOperationMessage(operator, x, y), sum(number1, number2) );
+    } else {
+        console.log( showErrorMessage(operation) );
+    }
 
     /*
     Repita desde o "PASSO 2" com as operações de subtração, multiplicação,
