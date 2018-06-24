@@ -70,10 +70,14 @@
     os dois parâmetros da função de retorno de "calculator".
     */
     function calculator(operador) {
-        if (operation[operador] !== undefined) {
+        if ( !isOperatorValid(operador) && operation[operador] !== undefined) {
             return function (param1, param2) {
-                typeof param1 === 'number' ? console.log('1') : console.log('2');                
+                if (typeof param1 === 'number' && typeof param2 === 'number') {
+                    console.log('true');                    
+                } 
+                return operation[ operador ](param1, param2);
             }
+            return false;
         }
     }
 
@@ -86,7 +90,9 @@
     'A operação [NUMBER1] [OPERATOR] [NUMBER2] =';
     Essa função mostrará a mensagem da operação que criaremos mais abaixo.
     */
-    // ?
+    function showOperationMessage (operator, x, y) {
+        return 'A operação ' + x + ' ' + operator + ' ' + y + ' ='
+    }
 
     /*
     Crie uma função chamada "showErrorMessage" que recebe um parâmetro: o
@@ -94,7 +100,9 @@
     Essa função deverá retornar a frase:
     'Operação "[OPERATOR]" não permitida!'
     */
-    // ?
+    function showErrorMessage(operation) {
+        return 'Operação "' + operation + '" não permitida!'
+    }
 
     /*
     Nossa calculadora está pronta! Agora vamos testá-la:
@@ -102,7 +110,9 @@
     - Declare 3 variáveis: "number1" e "number2", iniciando com valor zero, e
     "operationSignal", sem valor por enquanto.
     */
-    // ?
+    var number1 = 0,
+        number2 = 0,
+        operationSignal;
 
     /*
     PASSO 2:
@@ -110,7 +120,8 @@
     variável chamada "sum", que receba a função "calculator", passando por
     parâmetro a variável que recebeu o sinal da operação.
     */
-    // ?
+    var operationSignal = '+',
+        sum = calculator(operationSignal);
 
     /*
     PASSO 3:
@@ -124,7 +135,7 @@
     - O segundo, a função de soma, passando os dois operandos.
     - Se "sum" for "false", mostrar no console a mensagem de erro.
     */
-    // ?
+    
 
     /*
     Repita desde o "PASSO 2" com as operações de subtração, multiplicação,
