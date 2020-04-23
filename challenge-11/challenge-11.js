@@ -28,7 +28,7 @@
   var person = {
     name: 'Pedro',
     age: 27,
-    weight: 1.72,
+    weight: 70,
     birthday: '21/08/1993'
   }
 
@@ -43,13 +43,14 @@
 	*/
   //
 
-  var counter = person;
+  var counter = 0;
 
   for (const key in person) {
     console.log('The ' + key + ' is ' + person[key] );
+    counter++;
   }
 
-  console.log('counter', counter);
+  console.log('The person has '+ counter +' properties');
 
 
 	/*
@@ -64,10 +65,10 @@
 
     var validAge = person.age > age ? true : false;
 
-		return 'The person has more than 25 years old ' + validAge;
+		return validAge;
   }
 
-  moreThan();
+  console.log('The person has more than 25 years old ' + moreThan(28));
 
 	/*
 	Faça um loop de 0 a 20, que adicione cada número como um item de um
@@ -76,15 +77,19 @@
 	*/
 	console.log( 'De 0 a 10:' );
   //
+  var numbers = [];
 
-  for (let numbers = 0; numbers <= 20; numbers++) {
+  for (let i = 0; i <= 20; i++) {
 
-    if (numbers > 10) {
+    if (i > 10) {
 
       break;
     }
-    console.log('numbers', numbers);
+
+    numbers.push(i);
   }
+
+  console.log('numbers', numbers);
 
 	/*
 	Faça outro loop de 0 a 20, que adicione a um array chamado `numbers` (já
@@ -92,14 +97,15 @@
 	esses. Se o número for ímpar, pular para o próximo número.
 	Mostrar no console os números do array.
   */
+    numbers = [];
+    for (let i = 0; i <= 20; i++) {
+      if (i % 2 !== 0) {
+        continue;
+      }
+      numbers.push(i);
+    }
 
-   for (let numbers = 0; numbers <= 20; numbers++) {
-     if (numbers % 2 !== 0) {
-       continue;
-     }
-
-     console.log( 'Pares de 0 a 20:', numbers);
-   }
+    console.log( 'Pares de 0 a 20:', numbers);
 
 	// ?
 })();
