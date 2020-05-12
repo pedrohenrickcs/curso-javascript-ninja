@@ -1,4 +1,5 @@
 (function () {
+  'use-strict';
   /*
   1. Envolva todo o conteúdo desse desafio em uma IIFE.
   2. Adicione a diretiva 'use strict';
@@ -18,11 +19,9 @@
 
   var name = new String('Pedro');
 
-  console.log('name', `${name[0]} é a 1ª letra do meu nome`);
-  console.log('name', `${name[1]} é a 2ª letra do meu nome`);
-  console.log('name', `${name[2]} é a 3ª letra do meu nome`);
-  console.log('name', `${name[3]} é a 4ª letra do meu nome`);
-  console.log('name', `${name[4]} é a 5ª letra do meu nome`);
+  for (let i = 0, len = name.length; i < len; i++) {
+    console.log(`${name.charAt(i)} é a ${(i + 1)} ª letra do meu nome.`);
+  }
 
 
   /*
@@ -39,13 +38,13 @@
   */
   console.log( '\nNome convertido à partir de um slug:' );
 
-  var fullName = new String('pedro-henrick-cavalcante-souza');
+  var fullName = 'pedro-henrick-cavalcante-souza';
 
   var result = fullName.split('-').map(function (items) {
-    return `${items.toString()[0].toUpperCase()}${items.slice(1)}`;
-  })
+    return `${items[0].toUpperCase()}${items.slice(1)}`;
+  }).join(' ');
 
-  console.log(result.join(' '));
+  console.log(result);
 
   /*
   - Crie um array com 5 nomes. Reduza esses nomes a uma única string, separando
@@ -58,32 +57,35 @@
   */
   console.log( '\nMeus amigos:' );
   var names = ['Pedro', 'Lucas', 'Joao', 'Celia', 'Ariane', 'Gustavo', 'Gui'];
-  var lastName = names[names.length -1]
 
-  names.splice(-1);
-  console.log(`${names.join(', ')} e ${lastName} são meus amigos`);
+  var phrase = names.reduce(function (acumulado, atual, index) {
+
+    var separator = names.length -1 === index ? ' e ': ', ';
+
+    return acumulado + separator + atual;
+
+  }).concat(' são meus amigos.');
+
+  console.log(phrase);
 
   /*
   Usando o replace(), faça a string "Roberto" virar "Roberta".
   Mostre o resultado no console.
   */
   console.log( '\nEra "Roberto", agora é:' );
-  var roberto = new String('Roberto');
+  var roberto = 'Roberto'.replace('to', 'ta');
 
-  var index = roberto.lastIndexOf('o');
-
-  // var newRoberto = roberto[index].replace('o', 'a').slice(-1)
-  // console.log(newRoberto);
-
-  console.log('roberto =====', roberto);
-
+  console.log(roberto);
 
   /*
   Mostre no console a parte "nando" da string "Fernando". Use o método que
   faz a busca do final para o início da string.
   */
   console.log( '\nParte de uma string:' );
-  // ?
+
+  var fernando = 'Fernando';
+
+  console.log(fernando.substring(8, 3));
 
   /*
   Declare uma variável chamada `myName`, que receba o seu primeiro nome,
@@ -95,5 +97,18 @@
   Ex.: Nomes que deveriam funcionar: "Fernando", "RoBertO", "gabriEla", etc.
   */
   console.log( '\nNome com letras intercaladas entre caixa alta e baixa:' );
-  // ?
+
+  var myName = 'Roberto';
+
+  var newMyName = myName.split('').map(function (items, index) {
+
+    return index % 2 === 0 ? items.toUpperCase() : items.toLowerCase();
+
+  }).join('');
+
+  console.log(newMyName);
+
+
+
+
 })();
