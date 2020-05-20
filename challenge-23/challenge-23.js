@@ -1,5 +1,5 @@
 (function () {
-'use-strict'  ;
+	'use-strict';
 
 	/*
 	Vamos desenvolver mais um projeto. A ideia é fazer uma mini-calculadora.
@@ -34,42 +34,74 @@
 	var $equal = document.querySelector('[data-js="equal"');
 
 	Array.prototype.forEach.call($numbers, function (button) {
-		button.addEventListener('click', getNumber)
-	})
-
-	function getNumber() {
-		$input.value += this.value;
-	}
+		button.addEventListener('click', handleClickNumber)
+	});
 
 	Array.prototype.forEach.call($operator, function (button) {
-		button.addEventListener('click', getOperator)
-	})
+		button.addEventListener('click', handleClickOperation)
+	});
 
-	function getOperator() {
-		var op = ['+', '-', 'x', '/'];
-		var opDiff = $input.value.split('').pop();
+	$reset.addEventListener('click', handleClickCE);
 
-		op.map(function (items) {
-			if (items === opDiff) {
-			}
+	$equal.addEventListener('click', handleClickEqual);
 
-		})
-
+	function handleClickNumber() {
 		$input.value += this.value;
 	}
 
-	$reset.addEventListener('click', resetInput)
-
-	function resetInput() {
-		$input.value = '';
+	function handleClickOperation() {
+		$input.value = removeLastItemIsAnOperator($input.value);
+		$input.value += this.value;
 	}
 
-	function resultValue() {
-		console.log('getNumber', arguments);
+	function isLastItemOperation(number) {
 
+		var op = ['+', '-', 'x', '/'];
+		var lastItem = number.split('').pop();
+
+		return op.some(function (operator) {
+			return operator === lastItem;
+		})
 	}
 
-	resultValue();
+	function handleClickCE() {
+		$input.value = 0;
+	}
 
+	function removeLastItemIsAnOperator(number) {
+		if (isLastItemOperation(number)) {
+			return number.slice(0, -1);
+		}
+
+		return number;
+	}
+
+	function handleClickEqual() {
+		$input.value = removeLastItemIsAnOperator($input.value);
+
+		var allValues = $input.value.match(/\d+[+x/-]?/g);
+
+		var result = allValues.reduce(function (acumulado, atual, index) {
+			var firstValue = acumulado.slice(0, -1);
+			var operator = acumulado.split('').pop();
+			var lastValue = removeLastItemIsAnOperator(atual);
+			var lastOperator = isLastItemOperation(atual) ? atual.split('').pop() : '';
+
+			switch (operator) {
+				case '+':
+					return  ( Number(firstValue) + Number(lastValue) ) + lastOperator;
+				case '-':
+					return ( Number(firstValue) - Number(lastValue) ) + lastOperator;
+				case 'x':
+					return  ( Number(firstValue) * Number(lastValue) ) + lastOperator;
+				case '/':
+					return  ( Number(firstValue) / Number(lastValue) ) + lastOperator;
+			}
+		});
+
+		$input.value = result;
+
+		console.log(result);
+	}
 
 })();
