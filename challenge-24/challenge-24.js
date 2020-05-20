@@ -42,34 +42,45 @@ function isLastItemAnOperation(number) {
   var operations = ['+', '-', 'x', '÷'];
   var lastItem = number.split('').pop();
   return operations.some(function(operator) {
-    return operator === lastItem;
+	return operator === lastItem;
   });
 }
 
 function removeLastItemIfItIsAnOperator(number) {
   if(isLastItemAnOperation(number)) {
-    return number.slice(0, -1);
+	return number.slice(0, -1);
   }
   return number;
 }
 
 function handleClickEqual() {
-  $visor.value = removeLastItemIfItIsAnOperator($visor.value);
-  var allValues = $visor.value.match(/\d+[+x÷-]?/g);
-  $visor.value = allValues.reduce(function(accumulated, actual) {
-    var firstValue = accumulated.slice(0, -1);
-    var operator = accumulated.split('').pop();
-    var lastValue = removeLastItemIfItIsAnOperator(actual);
-    var lastOperator = isLastItemAnOperation(actual) ? actual.split('').pop() : '';
-    switch(operator) {
-      case '+':
-        return ( Number(firstValue) + Number(lastValue) ) + lastOperator;
-      case '-':
-        return ( Number(firstValue) - Number(lastValue) ) + lastOperator;
-      case 'x':
-        return ( Number(firstValue) * Number(lastValue) ) + lastOperator;
-      case '÷':
-        return ( Number(firstValue) / Number(lastValue) ) + lastOperator;
-    }
-  });
+	$visor.value = removeLastItemIfItIsAnOperator($visor.value);
+
+	var allValues = $visor.value.match(/\d+[+x÷-]?/g);
+
+	var result = $visor.value = allValues.reduce(function(accumulated, actual) {
+		return resolveOperations(accumulated, actual);
+	});
+
+	$visor.value = result;
+}
+
+function resolveOperations(accumulated, actual) {
+
+	var firstValue = Number(accumulated.slice(0, -1));
+	var operator = accumulated.split('').pop();
+	var lastValue = Number(removeLastItemIfItIsAnOperator(actual));
+	var lastOperator = isLastItemAnOperation(actual) ? actual.split('').pop() : '';
+
+
+	switch (operator) {
+		case '+':
+			return ( firstValue + lastValue) + lastOperator;
+		case '-':
+			return ( firstValue - lastValue) + lastOperator;
+		case 'x':
+			return ( firstValue * lastValue) + lastOperator;
+		case '÷':
+			return ( firstValue / lastValue) + lastOperator;
+	}
 }
