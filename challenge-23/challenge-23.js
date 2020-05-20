@@ -31,6 +31,7 @@
 	var $input = document.querySelector('input[type="text"]');
 	var $operator = document.querySelectorAll('[data-js="operation"]');
 	var $reset = document.querySelector('[data-js="reset"]');
+	var $equal = document.querySelector('[data-js="equal"');
 
 	Array.prototype.forEach.call($numbers, function (button) {
 		button.addEventListener('click', getNumber)
@@ -45,6 +46,15 @@
 	})
 
 	function getOperator() {
+		var op = ['+', '-', 'x', '/'];
+		var opDiff = $input.value.split('').pop();
+
+		op.map(function (items) {
+			if (items === opDiff) {
+			}
+
+		})
+
 		$input.value += this.value;
 	}
 
@@ -53,6 +63,13 @@
 	function resetInput() {
 		$input.value = '';
 	}
+
+	function resultValue() {
+		console.log('getNumber', arguments);
+
+	}
+
+	resultValue();
 
 
 })();
