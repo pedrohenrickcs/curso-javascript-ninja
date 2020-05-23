@@ -21,11 +21,17 @@ Só passe para o próximo problema quando tiver resolvido o anterior :)
 */
 // ?
 
-var $a = new DOM('[data-js="link"]');
-$a.on('click', function(e) {
-  e.preventDefault();
-  console.log('clicou');
+function DOM(element) {
+	console.log('string', element);
+	return this.element;
+}
+
+var $inputs = document.querySelectorAll('[data-js="link"]');
+var $a = new DOM($inputs);
+
+Array.prototype.forEach.call($inputs, function (button) {
+	return button;
 });
 
-console.log('Elementos selecionados:', $a.get());
-console.log('$a é filho de body?', $a.get()[0].parentNode === document.body);
+// console.log('Elementos selecionados:', $a.get());
+// console.log('$a é filho de body?', $a.get()[0].parentNode === document.body);
