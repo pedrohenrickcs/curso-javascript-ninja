@@ -28,102 +28,107 @@
 	adicionar as informações em tela.
 	*/
 
-	var ajax = new XMLHttpRequest();
-	var $formCep = new DOM('[data-js="form-cep"]');
-	var $inputCep = new DOM('[data-js="insert-cep"]');
-	var $logradouro = new DOM('[data-js="logradouro"]');
-	var $bairro = new DOM('[data-js="bairro"]');
-	var $estado = new DOM('[data-js="estado"]');
-	var $cidade = new DOM('[data-js="cidade"]');
-	var $cep = new DOM('[data-js="cep"]');
+	function app() {
+		var ajax = new XMLHttpRequest();
+		var $formCep = new DOM('[data-js="form-cep"]');
+		var $inputCep = new DOM('[data-js="insert-cep"]');
+		var $logradouro = new DOM('[data-js="logradouro"]');
+		var $bairro = new DOM('[data-js="bairro"]');
+		var $estado = new DOM('[data-js="estado"]');
+		var $cidade = new DOM('[data-js="cidade"]');
+		var $cep = new DOM('[data-js="cep"]');
 
-	function initialize() {
-		initEvents();
-	}
-
-	function initEvents() {
-		$formCep.on('submit', handleSubmitFormCep);
-	}
-
-	function handleSubmitFormCep(e) {
-		e.preventDefault();
-
-		var url = getUrl();
-		ajax.open('GET', url);
-		ajax.send();
-		getMessage('loading');
-		ajax.addEventListener('readystatechange', handleReadyStateChange);
-	}
-
-	function handleReadyStateChange() {
-
-		if ( isRequestOk() ) {
-			fillCEPFields();
-			getMessage('ok');
-		}
-	}
-
-	function clearData() {
-		return {
-			logradouro: '-',
-			bairro: '-',
-			estado: '-',
-			cidade: '-',
-			cep: '-'
-		}
-	}
-
-	function fillCEPFields(result) {
-		var data = parseData();
-
-		if (!data) {
-			getMessage('error');
-			data = clearData();
+		function initialize() {
+			initEvents();
 		}
 
-		$logradouro.get()[0].textContent = data.address;
-		$bairro.get()[0].textContent = data.district;
-		$estado.get()[0].textContent = data.state;
-		$cidade.get()[0].textContent = data.city;
-		$cep.get()[0].textContent = data.code;
-
-	}
-
-	function parseData() {
-		var result;
-		try {
-			result = JSON.parse(ajax.responseText);
-		} catch (e) {
-			result = null
+		function initEvents() {
+			$formCep.on('submit', handleSubmitFormCep);
 		}
 
-		return result;
-	}
+		function handleSubmitFormCep(e) {
+			e.preventDefault();
 
-	function clearCep() {
-		return `${$inputCep.get()[0].value.replace(/\D/g, '')}`;
-	}
-
-	function getMessage(type) {
-		var cep = clearCep();
-
-		var messages = {
-			loading: `Buscando informações para o CEP ${cep}`,
-			ok: `Endereço referente ao CEP ${cep}:`,
-			error: `Não encontramos o endereço para o CEP ${cep}.`
+			var url = getUrl();
+			ajax.open('GET', url);
+			ajax.send();
+			getMessage('loading');
+			ajax.addEventListener('readystatechange', handleReadyStateChange);
 		}
-		var $status = new DOM('[data-js="status"]');
-		$status.get()[0].textContent = messages[type];
+
+		function handleReadyStateChange() {
+
+			if (isRequestOk()) {
+				fillCEPFields();
+				getMessage('ok');
+			}
+		}
+
+		function clearData() {
+			return {
+				logradouro: '-',
+				bairro: '-',
+				estado: '-',
+				cidade: '-',
+				cep: '-'
+			}
+		}
+
+		function fillCEPFields(result) {
+			var data = parseData();
+
+			if (!data) {
+				getMessage('error');
+				data = clearData();
+			}
+
+			$logradouro.get()[0].textContent = data.address;
+			$bairro.get()[0].textContent = data.district;
+			$estado.get()[0].textContent = data.state;
+			$cidade.get()[0].textContent = data.city;
+			$cep.get()[0].textContent = data.code;
+
+		}
+
+		function parseData() {
+			var result;
+			try {
+				result = JSON.parse(ajax.responseText);
+			} catch (e) {
+				result = null
+			}
+
+			return result;
+		}
+
+		function clearCep() {
+			return `${$inputCep.get()[0].value.replace(/\D/g, '')}`;
+		}
+
+		function getMessage(type) {
+			var cep = clearCep();
+
+			var messages = {
+				loading: `Buscando informações para o CEP ${cep}`,
+				ok: `Endereço referente ao CEP ${cep}:`,
+				error: `Não encontramos o endereço para o CEP ${cep}.`
+			}
+			var $status = new DOM('[data-js="status"]');
+			$status.get()[0].textContent = messages[type];
+		}
+
+		function isRequestOk() {
+			return ajax.status === 200 && ajax.readyState === 4;
+		}
+
+		function getUrl() {
+			return `https://ws.apicep.com/cep/${clearCep()}.json`
+		}
+
+		initialize();
+
 	}
 
-	function isRequestOk() {
-		return ajax.status === 200 && ajax.readyState === 4;
-	}
-
-	function getUrl() {
-		return `https://ws.apicep.com/cep/${clearCep()}.json`
-	}
-
-	initialize();
+	app();
 
 })(window.DOM);
