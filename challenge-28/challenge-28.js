@@ -38,28 +38,45 @@
 	var $city = document.querySelector('[data-js="cidade"]');
 	var $cep = document.querySelector('[data-js="cep"]');
 
-	$button.addEventListener('click', function (e) {
-		e.preventDefault();
-		consultApi();
-	});
+	function initialize() {
+		initEvents();
+	}
+
+	function initEvents() {
+		$button.addEventListener('click', function (e) {
+			e.preventDefault();
+			consultApi();
+		});
+	}
+
+	function renderElement() {
+		var $body = document.body;
+		var waitResponse = document.createElement('span');
+		var $elementWait = document.querySelector('.wait-response');
+
+		waitResponse.classList.add('wait-response');
+		waitResponse.textContent = 'Carregando...';
+
+		if (document.querySelector('.wait-response') === null) {
+			$body.appendChild(waitResponse);
+		}
+	}
 
 	function consultApi() {
 		ajax.open('GET', `https://ws.apicep.com/cep/${$inputCep.value}.json`);
 		ajax.send();
 
+		ajax.response.map(function (items) {
+			console.log('items', items);
+
+		})
+
 		console.log('ajax', ajax);
 
-		var $body = document.body;
-		var waitResponse = document.createElement('span');
-		waitResponse.classList.add('wait-response');
-		waitResponse.textContent = 'Carregando...'
-		$body.appendChild(waitResponse);
-
+		var responseAjax = JSON.parse(ajax.response);
+		renderElement();
 
 		ajax.addEventListener('readystatechange', function () {
-			var responseAjax = JSON.parse(ajax.responseText);
-
-			document.querySelector('.wait-response').remove();
 
 			if (statusOk()) {
 				$address.textContent = responseAjax.address;
@@ -69,20 +86,29 @@
 				$cep.textContent = responseAjax.code;
 			}
 
-			try {
-				console.log('responseAjax', responseAjax);
-			} catch (e) {
-				console.log('catch', e);
+			if (statusNotOk()) {
+				console.log('status not ok');
 
-				ajax.responseText;
+				try {
+					console.log('responseAjax', responseAjax);
+				} catch (e) {
+					console.log('catch', e);
+
+					ajax.responseText;
+				}
 			}
 
 		});
 	}
 
 	function statusOk() {
-		return ajax.status === 200 || ajax.status === 4;
+		return ajax.status === 200 && ajax.readyState === 4;
 	}
 
+	function statusNotOk() {
+		return ajax.status === 404 && ajax.readyState === 4;
+	}
+
+	initialize();
 
 })();
