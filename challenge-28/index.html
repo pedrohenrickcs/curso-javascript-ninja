@@ -6,12 +6,15 @@
 </head>
 <body>
 
-	<form action="/">
+	<form data-js="form-cep" action="/">
 		<label>CEP:</label>
 		<input data-js="insert-cep" type="text">
-		<button data-js="button">Consultar CEP</button>
+		<button type="submit" data-js="button">Consultar CEP</button>
 	</form>
 
+	<section>
+		<h2 data-js="status"></h2>
+	</section>
 
 	<section>
 		<div class="logradouro">
