@@ -1,4 +1,4 @@
-(function() {
+(function(DOM) {
   'use strict';
 
   /*
@@ -36,4 +36,68 @@
   que será nomeado de "app".
   */
 
-})();
+  console.log('dom', DOM);
+
+	var ajax = new XMLHttpRequest;
+
+	function initialize() {
+		handleSubmit();
+	}
+
+  	function handleSubmit() {
+		var url = 'company.json';
+
+		ajax.open('GET', url)
+		ajax.send();
+		ajax.addEventListener('readystatechange', handleBasicInfos);
+	}
+
+
+	function handleReadyStateChange() {
+		var result;
+
+		try {
+			result = JSON.parse(ajax.responseText);
+		} catch (e) {
+			result = null;
+		}
+
+		return result;
+
+	}
+
+	function handleBasicInfos() {
+		var data = handleReadyStateChange();
+		var $company = new DOM('[data-js="company"]');
+		var $phone = new DOM('[data-js="phone"]');
+
+		$company.get()[0].textContent = data.name;
+		$phone.get()[0].textContent = data.phone;
+	}
+
+	var $register = document.querySelector('button');
+
+
+	$register.addEventListener('click', function (e) {
+		e.preventDefault();
+
+		console.log('submit');
+
+		sendAllInfos();
+	});
+
+
+	function sendAllInfos() {
+
+		var $image = new DOM('[data-js="image"]');
+		var $brand = new DOM('[data-js="brand"]')
+		var $year = new DOM('[data-js="year"]');
+		var $board = new DOM('[data-js="board"]');
+		var $color = new DOM('[data-js="color"]');
+
+		console.log('image', $image.get()[0].value);
+	}
+
+	initialize();
+
+})(window.DOM);
