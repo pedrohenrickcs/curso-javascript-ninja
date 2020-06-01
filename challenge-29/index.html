@@ -7,44 +7,53 @@
 <body>
 
 	<section>
-		<div>
-			<span>Empresa:</span>
+		<h1>
 			<span data-js="company"></span>
-		</div>
-		<div>
-			<span>Telefone:</span>
 			<span data-js="phone"></span>
-		</div>
+		</h1>
 	</section>
 
 	<form data-js="form">
-		<div>
-			<p>Imagem:</p>
-			<input data-js="image" type="text" />
-		</div>
-		<div>
-			<p>Marca:</p>
-			<input data-js="brand" type="text" />
-		</div>
-		<div>
-			<p>Ano:</p>
-			<input data-js="year" type="text" />
-		</div>
-		<div>
-			<p>Placa:</p>
-			<input data-js="board" type="text" />
-		</div>
-		<div>
-			<p>Cor:</p>
-			<input data-js="color" type="text" />
-		</div>
-
-		<button data-js="resgister">Registrar</button>
+		<ul>
+			<li>
+				<label>Imagem</label>
+				<input type="url" data-js="image">
+			</li>
+			<l >
+				<label>Marca</label>
+				<input type="text" data-js="brand">
+			</li>
+			<li>
+				<label>Ano</label>
+				<input type="text" data-js="year">
+			 </li>
+			<li>
+				<label>Placa</label>
+				<input type="text" data-js="board">
+			</li>
+			<li>
+				<label>Cor</label>
+				<input type="text" data-js="color">
+			</li>
+			<li>
+				<button data-js="resgister">Registrar</button>
+			</li>
+		</ul>
 	</form>
 
-	<section data-js="result">
+	<table>
+		<thead>
+			<tr>
+				<th>Imagem do carro</th>
+				<th>Marca / Modelo</th>
+				<th>Ano</th>
+				<th>Placa</th>
+				<th>Cor</th>
+			</tr>
+		</thead>
 
-	</section>
+		<tbody data-js="result"></tbody>
+	</table>
 
 	<script src="dom.js"></script>
 	<script src="challenge-29.js"></script>

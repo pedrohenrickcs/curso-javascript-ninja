@@ -1,4 +1,4 @@
-(function(DOM) {
+(function($) {
   'use strict';
 
   /*
@@ -36,68 +36,81 @@
   que será nomeado de "app".
   */
 
-  console.log('dom', DOM);
+	var app = (function() {
+		return {
+			init: function init() {
+				this.getCompanyInfo();
+				this.companyInfo();
+				this.initEvents();
+			},
 
-	var ajax = new XMLHttpRequest;
+			initEvents: function initEvents() {
+				$('[data-js="form"]').on('submit', this.handleSubmit)
+			},
 
-	function initialize() {
-		handleSubmit();
-	}
+			handleSubmit: function (e) {
+				e.preventDefault();
 
-  	function handleSubmit() {
-		var url = 'company.json';
+				var $tablecar = document.querySelector('[data-js="result"');
+				$tablecar.appendChild(app.createNewCar());
+			},
 
-		ajax.open('GET', url)
-		ajax.send();
-		ajax.addEventListener('readystatechange', handleBasicInfos);
-	}
+			createNewCar: function createNewCar() {
+				var $fragment = document.createDocumentFragment();
+				var $tr = document.createElement('tr');
+				var $tdImage = document.createElement('td');
+				var $image = document.createElement('img');
+				var $tdBrand = document.createElement('td');
+				var $tdBoard = document.createElement('td');
+				var $tdYear = document.createElement('td');
+				var $tdColor = document.createElement('td');
 
+				$image.setAttribute('src', $('[data-js="image"]').get().value);
+				$tdImage.appendChild($image);
 
-	function handleReadyStateChange() {
-		var result;
+				$tdImage.textContent = $('[data-js="image"]').get().value;
+				$tdBrand.textContent = $('[data-js="brand"]').get().value;
+				$tdYear.textContent = $('[data-js="year"]').get().value;
+				$tdBoard.textContent = $('[data-js="board"]').get().value;
+				$tdColor.textContent = $('[data-js="color"]').get().value;
 
-		try {
-			result = JSON.parse(ajax.responseText);
-		} catch (e) {
-			result = null;
+				$tr.appendChild($tdImage);
+				$tr.appendChild($tdBrand);
+				$tr.appendChild($tdYear);
+				$tr.appendChild($tdBoard);
+				$tr.appendChild($tdColor);
+
+				return $fragment.appendChild($tr);
+			},
+
+			companyInfo: function companyInfo() {
+				var ajax = new XMLHttpRequest();
+				var url = 'company.json';
+
+				ajax.open('GET', url)
+				ajax.send();
+				ajax.addEventListener('readystatechange', this.getCompanyInfo);
+			},
+
+			getCompanyInfo: function getCompanyInfo() {
+				if (!app.isReady.call(this))
+				return;
+
+				var data = JSON.parse(this.responseText);
+				var $company = $('[data-js="company"]').get();
+				var $phone = $('[data-js="phone"]').get();
+
+				$company.textContent = data.name;
+				$phone.textContent = data.phone;
+
+			},
+
+			isReady: function isReady() {
+				return this.readyState === 4 && this.status === 200;
+			}
 		}
+	})();
 
-		return result;
-
-	}
-
-	function handleBasicInfos() {
-		var data = handleReadyStateChange();
-		var $company = new DOM('[data-js="company"]');
-		var $phone = new DOM('[data-js="phone"]');
-
-		$company.get()[0].textContent = data.name;
-		$phone.get()[0].textContent = data.phone;
-	}
-
-	var $register = document.querySelector('button');
-
-
-	$register.addEventListener('click', function (e) {
-		e.preventDefault();
-
-		console.log('submit');
-
-		sendAllInfos();
-	});
-
-
-	function sendAllInfos() {
-
-		var $image = new DOM('[data-js="image"]');
-		var $brand = new DOM('[data-js="brand"]')
-		var $year = new DOM('[data-js="year"]');
-		var $board = new DOM('[data-js="board"]');
-		var $color = new DOM('[data-js="color"]');
-
-		console.log('image', $image.get()[0].value);
-	}
-
-	initialize();
+	app.init();
 
 })(window.DOM);
